@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/berries/berry-index.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <section class="page-header">
+    <h1>Berry List</h1>
+  </section>
+
+  <section class="card-container">
+    {% for berry in berries %}
+      <div class="card">
+        <div class="card-content">
+          <div class="card-img-container">
+            <img src="{% static 'images/icons8-strawberry-96.png' %}" alt="A strawberry" />
+          </div>
+          <h2 class="card-title">{{ berry.variety }} {{ berry.name }}</h2>
+          <p>
+            <small>{{ berry.description }}</small>
+          </p>
+        </div>
+      </div>
+    {% endfor %}
+  </section>
+{% endblock %}
