@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/berries/berry-detail.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <section class="">
+    <div class="">
+        <img src="{% static 'images/icons8-strawberry-96.png' %}" alt="A strawberry" />
+    </div>
+    <div class="">
+        <h2 class="card-title">{{ berry.variety }} {{ berry.name }}</h2>
+        <p>
+          {{ berry.description }}
+        </p>
+    </div>
+  </section>
+{% endblock %}
