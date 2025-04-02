@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -10,3 +11,7 @@ class Berry(models.Model):
 
     def __str__(self):
         return f'{self.name} ({self.id})'
+    
+    def get_absolute_url(self):
+        return reverse('berry-detail', kwargs={'berry_id': self.id})
+    

@@ -15,6 +15,10 @@
         <p>
           {{ berry.description }}
         </p>
+        <div class="">
+          <a href="{% url 'berry-update' berry.id %}" class="btn warn">edit</a>
+          <a href="{% url 'berry-delete' berry.id %}" class="btn danger">delete</a>
+        </div>
     </div>
   </section>
 {% endblock %}

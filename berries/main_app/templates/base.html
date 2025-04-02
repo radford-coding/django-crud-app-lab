@@ -16,15 +16,19 @@
   <body>
     <header>
       <div class="header-logo-container">
-        <a href="/"><img src="{% static 'images/icons8-berries-96.png' %}" alt="The Berry Picker Logo" /></a>
+        <p>[berrylogo]</p>
+        {% comment %} <a href="/"><img src="{% static 'images/icons8-berries-96.png' %}" alt="The Berry Picker Logo" /></a> {% endcomment %}
       </div>
       <nav>
         <ul>
           <li>
-            <a href="/berries">All Berries</a>
+            <a href="{% url 'berry-index' %}">All Berries</a>
           </li>
           <li>
-            <a href="/about">About</a>
+            <a href="{% url 'berry-create' %}">Add a Berry</a>
+          </li>
+          <li>
+            <a href="{% url 'about' %}">About</a>
           </li>
         </ul>
       </nav>
