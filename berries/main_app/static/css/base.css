@@ -103,6 +103,8 @@ nav li {
     margin: auto;
     padding: 10px 20px 0;
     max-width: 500px;
+    display: flex;
+    align-items: flex-end;
 }
 
 .page-header {
@@ -187,7 +189,6 @@ nav li {
         padding: 0 15px;
     }
 
-    /* visual fix to help align logo */
     .header-logo-container {
         padding-top: 3px;
     }
@@ -255,10 +256,9 @@ nav li {
     }
 
     .header-logo-container {
-        /* visual fix to help align logo */
         padding-top: 6px;
         width: 256px;
-        height: 35px;
+        height: 70px; /* fit logo */
     }
 
     @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
