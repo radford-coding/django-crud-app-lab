@@ -6,19 +6,44 @@
 {% endblock %}
 
 {% block content %}
-  <section class="">
-    <div class="">
-        <img src="{% static 'images/icons8-strawberry-96.png' %}" alt="A strawberry" />
+  <section class="berry-container">
+    <div class="berry-img">
+      <img src="{% static 'images/icons8-strawberry-96.png' %}" alt="A strawberry" />
     </div>
-    <div class="">
-        <h2 class="card-title">{{ berry.variety }} {{ berry.name|lower|capfirst }}</h2>
-        <p>
-          {{ berry.description }}
-        </p>
-        <div class="">
-          <a href="{% url 'berry-update' berry.id %}" class="btn warn">edit</a>
-          <a href="{% url 'berry-delete' berry.id %}" class="btn danger">delete</a>
-        </div>
+    <div class="berry-details">
+      <h2 class="card-title">{{ berry.variety }} {{ berry.get_name_display }}</h2>
+      <p>{{ berry.description }}</p>
+      <div class="berry-actions">
+        <a href="{% url 'berry-update' berry.id %}" class="btn warn">edit</a>
+        <a href="{% url 'berry-delete' berry.id %}" class="btn danger">delete</a>
+      </div>
     </div>
   </section>
+
+  <div class="pickings-farm-container">
+    <section class="pickings">
+      <div class="subsection-title">
+        <h2>Picking Excursions</h2>
+        {% comment %} <img src="{% static 'images/cat-cone.svg' %}" alt="An ice cream cone cat" />
+        <img src="{% static 'images/cat-onigiri.svg' %}" alt="A cat as onigiri" />
+        <img src="{% static 'images/kitty-kabob.svg' %}" alt="A kabob of kittens" /> {% endcomment %}
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Haul</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for picking in berry.picking_set.all %}
+            <tr>
+              <td>{{ picking.date }}</td>
+              <td>{{ picking.haul }}lbs</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </div>
 {% endblock %}
