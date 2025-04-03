@@ -180,6 +180,12 @@
     margin-left: 10px;
 }
 
+.new-picking {
+    background-color: rgba(0, 0, 0, .1);
+    padding: 20px;
+    border-radius: var(--card-border-radius);
+}
+
 #file-input {
     overflow: hidden;
     position: absolute;

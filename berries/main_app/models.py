@@ -39,3 +39,6 @@ class Picking(models.Model):
 
     def __str__(self):
         return f'{self.haul}lbs on {self.date}'
+    
+    class Meta:
+        ordering = ['-date']

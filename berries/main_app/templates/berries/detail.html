@@ -28,22 +28,39 @@
         <img src="{% static 'images/cat-onigiri.svg' %}" alt="A cat as onigiri" />
         <img src="{% static 'images/kitty-kabob.svg' %}" alt="A kabob of kittens" /> {% endcomment %}
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Haul</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for picking in berry.picking_set.all %}
+
+      <div class="new-picking">
+        <h3>I went picking!</h3>
+        <form action="{% url 'add-picking' berry.id %}" method="post" class="subsection-content" autocomplete="off">
+          {% csrf_token %}
+          {{ picking_form.as_p }}
+          <button type="submit" class="btn submit">Add Picking</button>
+        </form>
+      </div>
+
+      <h3>Past Picking Excursions</h3>
+      {% if berry.picking_set.all.count %}
+        <table>
+          <thead>
             <tr>
-              <td>{{ picking.date }}</td>
-              <td>{{ picking.haul }}lbs</td>
+              <th>Date</th>
+              <th>Haul</th>
             </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {% for picking in berry.picking_set.all %}
+              <tr>
+                <td>{{ picking.date }}</td>
+                <td>{{ picking.haul }}lbs</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <div class="subsection-content">
+          <p>⚠️ You haven't picked {{ berry.variety }} {{ berry.get_name_display }} yet!</p>
+        </div>
+      {% endif %}
     </section>
   </div>
 {% endblock %}
