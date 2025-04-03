@@ -4,7 +4,7 @@ from .models import Berry
 
 # Create your views here.
 
-
+# function-based views
 def home(request):
     return render(request, 'home.html')
 
@@ -22,13 +22,17 @@ def berry_detail(request, berry_id):
     berry = Berry.objects.get(id=berry_id)
     return render(request, 'berries/detail.html', {'berry': berry})
 
+
+# class-based views
 class BerryCreate(CreateView):
     model = Berry
     fields = '__all__'
 
+
 class BerryUpdate(UpdateView):
     model = Berry
     fields = ['variety', 'description', 'season']
+
 
 class BerryDelete(DeleteView):
     model = Berry

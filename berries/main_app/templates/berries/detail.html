@@ -11,7 +11,7 @@
         <img src="{% static 'images/icons8-strawberry-96.png' %}" alt="A strawberry" />
     </div>
     <div class="">
-        <h2 class="card-title">{{ berry.variety }} {{ berry.name }}</h2>
+        <h2 class="card-title">{{ berry.variety }} {{ berry.name|lower|capfirst }}</h2>
         <p>
           {{ berry.description }}
         </p>
