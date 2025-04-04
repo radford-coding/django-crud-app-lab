@@ -16,7 +16,7 @@
         <a href="{% url 'berry-detail' berry.id %}">
             <div class="card-content">
               <div class="card-img-container">
-                <img src="{% static 'images/' %}{{ berry.name|lower }}.png" alt="A strawberry" />
+                <img src="{% static 'images/' %}{{ berry.name|lower }}.png" alt="A {{ berry.name|lower }}" />
               </div>
               <h2 class="card-title">{{ berry.variety }} {{ berry.get_name_display }}</h2>
               <p>

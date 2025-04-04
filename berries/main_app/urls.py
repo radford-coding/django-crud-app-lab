@@ -10,4 +10,5 @@ urlpatterns = [
     path('berries/<int:pk>/update/', views.BerryUpdate.as_view(), name='berry-update'),
     path('berries/<int:pk>/delete/', views.BerryDelete.as_view(), name='berry-delete'),
     path('berries/<int:berry_id>/add-picking/', views.add_picking, name='add-picking'),
+    path('accounts/signup/', views.signup, name='signup'),
 ]

@@ -8,7 +8,7 @@
 {% block content %}
   <section class="berry-container">
     <div class="berry-img">
-      <img src="{% static 'images/icons8-strawberry-96.png' %}" alt="A strawberry" />
+      <img src="{% static 'images/' %}{{ berry.name|lower }}.png" alt="A {{ berry.name|lower }}" />
     </div>
     <div class="berry-details">
       <h2 class="card-title">{{ berry.variety }} {{ berry.get_name_display }}</h2>

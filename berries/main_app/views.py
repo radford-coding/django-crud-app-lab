@@ -1,6 +1,8 @@
 from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
 from .models import Berry
 from .forms import PickingForm
 
@@ -18,7 +20,7 @@ def about(request):
 
 
 def berry_index(request):
-    berries = Berry.objects.all()
+    berries = request.user.berry_set.all()
     return render(request, 'berries/index.html', {'berries': berries})
 
 
@@ -34,7 +36,11 @@ def berry_detail(request, berry_id):
 # class-based views
 class BerryCreate(CreateView):
     model = Berry
-    fields = '__all__'
+    fields = ['name', 'variety', 'description', 'season']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class BerryUpdate(UpdateView):
@@ -53,3 +59,17 @@ def add_picking(request, berry_id):
         new_picking.berry_id = berry_id
         new_picking.save()
     return redirect('berry-detail', berry_id=berry_id)
+
+def signup(request):
+    error_msg = ''
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('berry-index')
+        else:
+            error_msg = 'invalid signup - try again'
+    form = UserCreationForm()
+    context = {'form': form, 'error_msg': error_msg}
+    return render(request, 'signup.html', context)
