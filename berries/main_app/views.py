@@ -3,6 +3,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Berry
 from .forms import PickingForm
 
@@ -18,12 +20,12 @@ class Home(LoginView):
 def about(request):
     return render(request, 'about.html')
 
-
+@login_required
 def berry_index(request):
     berries = request.user.berry_set.all()
     return render(request, 'berries/index.html', {'berries': berries})
 
-
+@login_required
 def berry_detail(request, berry_id):
     berry = Berry.objects.get(id=berry_id)
     picking_form = PickingForm()
@@ -34,7 +36,7 @@ def berry_detail(request, berry_id):
 
 
 # class-based views
-class BerryCreate(CreateView):
+class BerryCreate(LoginRequiredMixin, CreateView):
     model = Berry
     fields = ['name', 'variety', 'description', 'season']
 
@@ -43,15 +45,16 @@ class BerryCreate(CreateView):
         return super().form_valid(form)
 
 
-class BerryUpdate(UpdateView):
+class BerryUpdate(LoginRequiredMixin, UpdateView):
     model = Berry
     fields = ['variety', 'description', 'season']
 
 
-class BerryDelete(DeleteView):
+class BerryDelete(LoginRequiredMixin, DeleteView):
     model = Berry
     success_url = '/berries/'
 
+@login_required
 def add_picking(request, berry_id):
     form = PickingForm(request.POST)
     if form.is_valid():
