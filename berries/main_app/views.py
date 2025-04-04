@@ -34,7 +34,11 @@ def berry_detail(request, berry_id):
 # class-based views
 class BerryCreate(CreateView):
     model = Berry
-    fields = '__all__'
+    fields = ['name', 'variety', 'description', 'season']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class BerryUpdate(UpdateView):
