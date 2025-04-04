@@ -10,5 +10,10 @@ urlpatterns = [
     path('berries/<int:pk>/update/', views.BerryUpdate.as_view(), name='berry-update'),
     path('berries/<int:pk>/delete/', views.BerryDelete.as_view(), name='berry-delete'),
     path('berries/<int:berry_id>/add-picking/', views.add_picking, name='add-picking'),
+    path('farms/create', views.FarmCreate.as_view(), name='farm-create'),
+    path('farms/<int:pk>/', views.FarmDetail.as_view(), name='farm-detail'),
+    path('farms/', views.FarmList.as_view(), name='farm-index'),
+    path('farms/<int:pk>/update/', views.FarmUpdate.as_view(), name='farm-update'),
+    path('farms/<int:pk>/delete/', views.FarmDelete.as_view(), name='farm-delete'),
     path('accounts/signup/', views.signup, name='signup'),
 ]

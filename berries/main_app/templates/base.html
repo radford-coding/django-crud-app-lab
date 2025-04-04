@@ -36,7 +36,9 @@
         <ul>
           {% if user.is_authenticated %}
             <li><a href="{% url 'berry-index' %}">All Berries</a></li>
+            <li><a href="{% url 'farm-index' %}">All Farms</a></li>
             <li><a href="{% url 'berry-create' %}">Add a Berry</a></li>
+            <li><a href="{% url 'farm-create' %}">Add a Farm</a></li>
             <li><a href="{% url 'about' %}">About</a></li>
             <li>
               <form id="logout-form" method="post" action="{% url 'logout' %}">

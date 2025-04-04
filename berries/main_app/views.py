@@ -5,7 +5,8 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Berry
+from django.views.generic import ListView, DetailView
+from .models import Berry, Farm
 from .forms import PickingForm
 
 # Create your views here.
@@ -76,3 +77,21 @@ def signup(request):
     form = UserCreationForm()
     context = {'form': form, 'error_msg': error_msg}
     return render(request, 'signup.html', context)
+
+class FarmCreate(LoginRequiredMixin, CreateView):
+    model = Farm
+    fields = '__all__'
+
+class FarmList(LoginRequiredMixin, ListView):
+    model = Farm
+
+class FarmDetail(LoginRequiredMixin, DetailView):
+    model = Farm
+
+class FarmUpdate(LoginRequiredMixin, UpdateView):
+    model = Farm
+    fields = ['name', 'description', 'city', 'state']
+
+class FarmDelete(LoginRequiredMixin, DeleteView):
+    model = Farm
+    success_url = '/farms/'
