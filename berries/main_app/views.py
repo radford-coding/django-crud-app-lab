@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.views import LoginView
 from .models import Berry
 from .forms import PickingForm
 
@@ -8,8 +9,8 @@ from .forms import PickingForm
 # function-based views
 
 
-def home(request):
-    return render(request, 'home.html')
+class Home(LoginView):
+    template_name = 'home.html'
 
 
 def about(request):
