@@ -16,7 +16,7 @@
   <section class="card-container">
     {% for farm in farm_list %}
       <div class="card" style="border-color: green">
-        <div class="card-bg" style="background-color: rgb({{ farm|color_red }}, {{ farm|color_green }}, {{ farm|color_blue }});"></div>
+        <div class="card-bg" style="background-color: {{ farm|color }}"></div>
         <a href="{% url 'farm-detail' farm.id %}">
           <div class="card-content">
             <h2>{{ farm.name }} <br /> in {{ farm.city }}, {{ farm.state }}</h2>

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load color_calc %}
 
 {% block head %}
   <link rel="stylesheet" href="{% static 'css/berries/berry-detail.css' %}" />
@@ -75,7 +76,7 @@
         {% if berry.farms.count %}
           {% for farm in berry.farms.all %}
             <div class="farm-container">
-              <div class="color-block" style="background-color: green;"></div>
+              <div class="color-block" style="background-color: {{ farm|color }}"></div>
               <a href="{% url 'farm-detail' farm.id %}">
                 <p>
                   {{ farm.name }} <br /> in {{ farm.city }}, {{ farm.state }}
@@ -88,28 +89,26 @@
             </div>
           {% endfor %}
         {% else %}
-            <p class="no-farms">
-              {{ berry.variety }} {{ berry.get_name_display }} isn't available at any farms!
-            </p>
+          <p class="no-farms">{{ berry.variety }} {{ berry.get_name_display }} isn't available at any farms!</p>
         {% endif %}
       </div>
 
       <h3>Available Farms</h3>
       <div class="subsection-content">
         {% if farms.count %}
-        {% for farm in farms %}
-          <div class="farm-container">
-            <div class="color-block" style="background-color: green"></div>
-            <p>
-              {{ farm.name }} <br /> in {{ farm.city }}, {{ farm.state }}
-            </p>
+          {% for farm in farms %}
+            <div class="farm-container">
+              <div class="color-block" style="background-color: {{ farm|color }}"></div>
+              <p>
+                {{ farm.name }} <br /> in {{ farm.city }}, {{ farm.state }}
+              </p>
 
-            <form action="{% url 'associate-farm' berry.id farm.id %}" method="post">
-              {% csrf_token %}
-              <button type="submit" class="btn submit">Add Farm</button>
-            </form>
-          </div>
-        {% endfor %}
+              <form action="{% url 'associate-farm' berry.id farm.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn submit">Add Farm</button>
+              </form>
+            </div>
+          {% endfor %}
         {% else %}
           <p class="all-farms">All listed farms have {{ berry.variety }} {{ berry.get_name_display }} available!</p>
         {% endif %}
