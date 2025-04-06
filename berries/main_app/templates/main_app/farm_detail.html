@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load color_calc %}
 {% block head %}
   <link rel="stylesheet" href="{% static 'css/farms/farm-detail.css' %}" />
 {% endblock %}
 {% block content %}
   <div class="card" style="border-color: green">
-    <div class="card-bg" style="background-color: green"></div>
+    <div class="card-bg" style="background-color: {{ farm|color }}"></div>
     <div class="card-content">
       <h2>{{ farm.name }} <br /> in {{ farm.city }}, {{ farm.state }}</h2>
       <p>{{ farm.description }}</p>
