@@ -16,5 +16,6 @@ urlpatterns = [
     path('farms/<int:pk>/update/', views.FarmUpdate.as_view(), name='farm-update'),
     path('farms/<int:pk>/delete/', views.FarmDelete.as_view(), name='farm-delete'),
     path('berries/<int:berry_id>/associate-farm/<int:farm_id>/', views.associate_farm, name='associate-farm'),
+    path('berries/<int:berry_id>/remove-farm/<int:farm_id>/', views.remove_farm, name='remove-farm'),
     path('accounts/signup/', views.signup, name='signup'),
 ]

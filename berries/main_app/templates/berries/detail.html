@@ -81,11 +81,15 @@
                   {{ farm.name }} <br /> in {{ farm.city }}, {{ farm.state }}
                 </p>
               </a>
+              <form action="{% url 'remove-farm' berry.id farm.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Remove Farm</button>
+              </form>
             </div>
           {% endfor %}
         {% else %}
             <p class="no-farms">
-              {{ berry.variety }} {{ berry.get_name_display }} isn't at any farms!
+              {{ berry.variety }} {{ berry.get_name_display }} isn't available at any farms!
             </p>
         {% endif %}
       </div>

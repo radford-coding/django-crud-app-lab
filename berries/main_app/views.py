@@ -102,3 +102,8 @@ class FarmDelete(LoginRequiredMixin, DeleteView):
 def associate_farm(request, berry_id, farm_id):
     Berry.objects.get(id=berry_id).farms.add(farm_id)
     return redirect('berry-detail', berry_id=berry_id)
+
+@login_required
+def remove_farm(request, berry_id, farm_id):
+    Berry.objects.get(id=berry_id).farms.remove(farm_id)
+    return redirect('berry-detail', berry_id=berry_id)
