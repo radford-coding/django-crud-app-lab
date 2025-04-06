@@ -29,10 +29,12 @@ def berry_index(request):
 @login_required
 def berry_detail(request, berry_id):
     berry = Berry.objects.get(id=berry_id)
+    farms_not_associated = Farm.objects.exclude(id__in = berry.farms.all().values_list('id'))
     picking_form = PickingForm()
     return render(request, 'berries/detail.html', {
         'berry': berry,
-        'picking_form': picking_form
+        'picking_form': picking_form,
+        'farms': farms_not_associated
     })
 
 
@@ -95,3 +97,8 @@ class FarmUpdate(LoginRequiredMixin, UpdateView):
 class FarmDelete(LoginRequiredMixin, DeleteView):
     model = Farm
     success_url = '/farms/'
+
+@login_required
+def associate_farm(request, berry_id, farm_id):
+    Berry.objects.get(id=berry_id).farms.add(farm_id)
+    return redirect('berry-detail', berry_id=berry_id)

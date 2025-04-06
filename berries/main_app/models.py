@@ -7,6 +7,19 @@ from localflavor.us.models import USStateField
 
 # Create your models here.
 
+class Farm(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(max_length=250)
+    city = models.CharField(max_length=50)
+    state = USStateField()
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('farm-detail', kwargs={'pk': self.id})
+
+
 class Berry(models.Model):
     BERRY_CHOICES = {
         'BLACKBERRY': 'Blackberry',
@@ -26,6 +39,7 @@ class Berry(models.Model):
     variety = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
     season = models.CharField(max_length=100)
+    farms = models.ManyToManyField(Farm)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -42,19 +56,6 @@ class Picking(models.Model):
 
     def __str__(self):
         return f'{self.haul}lbs on {self.date}'
-    
+
     class Meta:
         ordering = ['-date']
-
-class Farm(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField(max_length=250)
-    city = models.CharField(max_length=50)
-    state = USStateField()
-
-    def __str__(self):
-        return self.name
-    
-    def get_absolute_url(self):
-        return reverse('farm-detail', kwargs={'pk': self.id})
-    

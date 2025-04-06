@@ -62,5 +62,54 @@
         </div>
       {% endif %}
     </section>
+
+    <section class="farms">
+      <div class="subsection-title">
+        <h2>Farms</h2>
+        {% comment %} <img src="{% static 'images/string.svg' %}" alt="A ball of string" />
+        <img src="{% static 'images/mouse.svg' %}" alt="A mouse" />
+        <img src="{% static 'images/fish.svg' %}" alt="A fishy toy" /> {% endcomment %}
+      </div>
+      <h3>Farms with {{ berry.variety }} {{ berry.get_name_display }} planted</h3>
+      <div class="subsection-content">
+        {% if berry.farms.count %}
+          {% for farm in berry.farms.all %}
+            <div class="farm-container">
+              <div class="color-block" style="background-color: green;"></div>
+              <a href="{% url 'farm-detail' farm.id %}">
+                <p>
+                  {{ farm.name }} <br /> in {{ farm.city }}, {{ farm.state }}
+                </p>
+              </a>
+            </div>
+          {% endfor %}
+        {% else %}
+            <p class="no-farms">
+              {{ berry.variety }} {{ berry.get_name_display }} isn't at any farms!
+            </p>
+        {% endif %}
+      </div>
+
+      <h3>Available Farms</h3>
+      <div class="subsection-content">
+        {% if farms.count %}
+        {% for farm in farms %}
+          <div class="farm-container">
+            <div class="color-block" style="background-color: green"></div>
+            <p>
+              {{ farm.name }} <br /> in {{ farm.city }}, {{ farm.state }}
+            </p>
+
+            <form action="{% url 'associate-farm' berry.id farm.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn submit">Add Farm</button>
+            </form>
+          </div>
+        {% endfor %}
+        {% else %}
+          <p class="all-farms">All listed farms have {{ berry.variety }} {{ berry.get_name_display }} available!</p>
+        {% endif %}
+      </div>
+    </section>
   </div>
 {% endblock %}
